@@ -16,7 +16,7 @@
 
 #   Set Paths
 #   ------------------------------------------------------------
-    export PATH="$PATH:/usr/local/bin/"
+    export PATH="/usr/local/bin:$PATH"
 
 
 #   Set Default Editor (change 'Nano' to the editor of your choice)
