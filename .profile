@@ -59,7 +59,10 @@
     alias exers='exercism submit'
     alias exerf='exercism fetch'
 
-
+# Activation bash completion
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+    source $(brew --prefix)/etc/bash_completion
+fi
 
 # Add bash completion for exercism.io
 if [ -f ~/.config/exercism/exercism_completion.bash ]; then
