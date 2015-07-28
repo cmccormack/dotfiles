@@ -17,6 +17,7 @@
 #   Set Paths
 #   ------------------------------------------------------------
     export PATH="/usr/local/bin:$PATH"
+    export PATH="$PATH:/Library/Frameworks/Python.framework/Versions/Current/bin"
 
 
 #   Set Default Editor (change 'Nano' to the editor of your choice)
@@ -52,9 +53,21 @@
     alias less="less -FSRXc"
     alias c="clear"
     
-#   Mac Aliases
-    alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES;killall Finder'
-    alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO;killall Finder'
+#   Mac Hidden Files
+    function showFiles()
+    {
+        defaults write com.apple.finder AppleShowAllFiles YES
+        killall Finder /System/Library/CoreServices/Finder.app
+        echo 'Hidden files now visible'
+    }
+
+    function hideFiles()
+    {
+        defaults write com.apple.finder AppleShowAllFiles NO
+        killall Finder /System/Library/CoreServices/Finder.app
+        echo 'Hidden files not invisible'
+    }
+
 
 #   Networking Aliases
     alias myip='curl ip.appspot.com'
@@ -73,3 +86,5 @@ if [ -f ~/.config/exercism/exercism_completion.bash ]; then
     . ~/.config/exercism/exercism_completion.bash
 fi
 
+# Backup .profile to Dropbox
+cp ~/.profile ~/Dropbox/Hobbies/Mac/_.profile
