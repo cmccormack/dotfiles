@@ -10,3 +10,4 @@ brew install caskroom/cask/brew-cask
 
 # Applications
 brew cask install google-chrome
+brew cask install dropbox
