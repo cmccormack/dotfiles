@@ -1,6 +1,7 @@
 #  ---------------------------------------------------------------------------
 #
 #  Description:  This file holds all my BASH configurations and aliases
+#  Mac OS X Directory: ~/Users/[username]/.profile
 #
 
 
