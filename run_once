@@ -11,3 +11,14 @@ brew install caskroom/cask/brew-cask
 # Applications
 brew cask install google-chrome
 brew cask install dropbox
+brew cask install firefox
+brew cask install google-drive
+brew cask install evernote
+brew cask install spotify
+brew cask install vlc
+brew cask install steam
+brew cask install transmission
+brew cask install cyberduck
+brew cask install flux
+brew cask install keka
+brew cask install deluge
