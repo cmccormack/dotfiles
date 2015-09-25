@@ -45,7 +45,7 @@
     
 #   General Aliases
     alias ll="ls -l"
-    alias py="python3.3"
+    alias py27="python2.7"
     alias rm="rm -i"
     alias cp="cp -iv"
     alias mv="mv -iv"
