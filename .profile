@@ -52,22 +52,27 @@
     alias mkdir="mkdir -pv"
     alias less="less -FSRXc"
     alias c="clear"
+
+#   Mac Only
+#   ------------------------------------------------------------
+    unamestr=`uname`
+    if [[ "$unamestr" == 'Darwin' ]]; then
+        
+        #   Mac Hidden Files
+        function showFiles()
+        {
+            defaults write com.apple.finder AppleShowAllFiles YES
+            killall Finder /System/Library/CoreServices/Finder.app
+            echo 'Hidden files now visible'
+        }
     
-#   Mac Hidden Files
-    function showFiles()
-    {
-        defaults write com.apple.finder AppleShowAllFiles YES
-        killall Finder /System/Library/CoreServices/Finder.app
-        echo 'Hidden files now visible'
-    }
-
-    function hideFiles()
-    {
-        defaults write com.apple.finder AppleShowAllFiles NO
-        killall Finder /System/Library/CoreServices/Finder.app
-        echo 'Hidden files not invisible'
-    }
-
+        function hideFiles()
+        {
+            defaults write com.apple.finder AppleShowAllFiles NO
+            killall Finder /System/Library/CoreServices/Finder.app
+            echo 'Hidden files not invisible'
+        }
+    fi
 
 #   Networking Aliases
     alias myip='curl ip.appspot.com'
