@@ -6,7 +6,7 @@ cp .bashrc ~/.bashrc
 source .bashrc
 ```
 
-Change Message of the Day:
+Change Message of the Day (MotD):
 -------------
 ```sh
 cp motd /etc/motd
