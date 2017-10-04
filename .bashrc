@@ -3,6 +3,10 @@
 #  Description:  This file holds all my BASH configurations and aliases
 #  Mac OS X Directory: ~/Users/[username]/.profile
 #
+#  Load order for Bash profile on Mac OSX (loads first found):
+#   1. ~/.bash_profile
+#   2. ~/.bash_login
+#   3. ~/.profile
 
 
 #   -------------------------------
@@ -41,7 +45,6 @@
 #   from http://osxdaily.com/2012/02/21/add-color-to-the-terminal-in-mac-os-x/
 #   ------------------------------------------------------------
     export CLICOLOR=1
-    #export LSCOLORS=ExFxBxDxCxegedabagacad
     export LSCOLORS=GxFxCxDxBxegedabagaced
 
 
