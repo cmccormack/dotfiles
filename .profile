@@ -9,9 +9,15 @@
 #   1.  ENVIRONMENT CONFIGURATION
 #   -------------------------------
 
+    SB_BLUE="\[\033[1;34m\]"
+    SB_CYAN="\[\033[0;36m\]"
+    SB_YELLOW="\[\033[0;93m\]"
+    SB_OFF="\[\033[0m\]"
+
 #   Change Prompt
 #   ------------------------------------------------------------
-    export PS1="\$(date +%k:%M:%S) (\u)[\w]# "
+#   export PS1="\$(date +%k:%M:%S) (\u)[\w]# "
+    export PS1="\`if [ \$? != 0 ]; then echo ðŸ’¥ ; else echo ðŸº  ; fi\` $SB_YELLOW (\u) $SB_CYAN[\W]# $SB_OFF"
 
 
 #   Set Paths
@@ -44,52 +50,44 @@
 #   ------------------------------------------------------------
     
 #   General Aliases
-    alias ll="ls -l"
-    alias py27="python2.7"
+    alias ll="ls -lah"
+    alias py="python3.3"
     alias rm="rm -i"
     alias cp="cp -iv"
     alias mv="mv -iv"
     alias mkdir="mkdir -pv"
     alias less="less -FSRXc"
     alias c="clear"
-
-#   Mac Only
-#   ------------------------------------------------------------
-    unamestr=`uname`
-    if [[ "$unamestr" == 'Darwin' ]]; then
-        
-        #   Mac Hidden Files
-        function showFiles()
-        {
-            defaults write com.apple.finder AppleShowAllFiles YES
-            killall Finder /System/Library/CoreServices/Finder.app
-            echo 'Hidden files now visible'
-        }
     
-        function hideFiles()
-        {
-            defaults write com.apple.finder AppleShowAllFiles NO
-            killall Finder /System/Library/CoreServices/Finder.app
-            echo 'Hidden files not invisible'
-        }
-    fi
+#   Mac Hidden Files
+    function showFiles()
+    {
+        defaults write com.apple.finder AppleShowAllFiles YES
+        killall Finder /System/Library/CoreServices/Finder.app
+        echo 'Hidden files now visible'
+    }
+
+    function hideFiles()
+    {
+        defaults write com.apple.finder AppleShowAllFiles NO
+        killall Finder /System/Library/CoreServices/Finder.app
+        echo 'Hidden files not invisible'
+    }
+
 
 #   Networking Aliases
     alias myip='curl ip.appspot.com'
 
-#   Programming Aliases
-    alias exers='exercism submit'
-    alias exerf='exercism fetch'
 
 # Activation bash completion
-if [ -f $(brew --prefix)/etc/bash_completion ]; then
-    source $(brew --prefix)/etc/bash_completion
-fi
+    if [ -f $(brew --prefix)/etc/bash_completion ]; then
+        source $(brew --prefix)/etc/bash_completion
+    fi
 
-# Add bash completion for exercism.io
-if [ -f ~/.config/exercism/exercism_completion.bash ]; then
-    . ~/.config/exercism/exercism_completion.bash
-fi
+
+# Add bash completion for git
+    source ~/.git-completion.bash
 
 # Backup .profile to Dropbox
-cp ~/.profile ~/Dropbox/Hobbies/Mac/_.profile
+    cp ~/.profile ~/Dropbox/Hobbies/Mac/_.profile
+
