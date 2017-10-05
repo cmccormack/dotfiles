@@ -53,7 +53,11 @@
 #   ------------------------------------------------------------
     
 #   General Aliases
-    alias ll="ls -lah"
+    alias grep='grep --color=auto'
+    alias ls="ls --color=auto"
+    alias ll="ls -lahF"
+    alias la="ls -lahF"
+    alias l="ls -lhF"
     alias py="python3.3"
     alias rm="rm -i"
     alias cp="cp -iv"
