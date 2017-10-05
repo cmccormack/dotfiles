@@ -21,7 +21,7 @@
 #   Change Prompt
 #   ------------------------------------------------------------
 #   export PS1="\$(date +%k:%M:%S) (\u)[\w]# "
-    export PS1="\`if [ \$? != 0 ]; then echo ðŸ’¥ ; else echo ðŸº  ; fi\` $SB_YELLOW (\u) $SB_CYAN[\W]# $SB_OFF"
+    export PS1="\`if [ \$? != 0 ]; then echo 💥 ; else echo 🍺  ; fi\` $SB_YELLOW (\u) $SB_CYAN[\W]# $SB_OFF"
 
 
 #   Set Paths
@@ -54,7 +54,6 @@
     
 #   General Aliases
     alias grep='grep --color=auto'
-    alias ls="ls --color=auto"
     alias ll="ls -lahF"
     alias la="ls -lahF"
     alias l="ls -lhF"
@@ -84,8 +83,8 @@
     
     
 #   Mac-only Commands
-    if [ "$(uname -s)" == "Darwin" ]; then
-
+    if [ $(os_version) == "Darwin" ]; then
+    
 #       Mac Hidden Files
         function showFiles() {
             defaults write com.apple.finder AppleShowAllFiles YES
