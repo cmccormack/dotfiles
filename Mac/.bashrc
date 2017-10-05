@@ -27,7 +27,7 @@
 #   Set Paths
 #   ------------------------------------------------------------
     export PATH="/usr/local/bin:$PATH"
-    export PATH="$PATH:/Library/Frameworks/Python.framework/Versions/Current/bin"
+    
 
 
 #   Set Default Editor (change 'Nano' to the editor of your choice)
@@ -65,36 +65,46 @@
     alias mkdir="mkdir -pv"
     alias less="less -FSRXc"
     alias c="clear"
-    
-#   Mac Hidden Files
-    function showFiles()
-    {
-        defaults write com.apple.finder AppleShowAllFiles YES
-        killall Finder /System/Library/CoreServices/Finder.app
-        echo 'Hidden files now visible'
-    }
-
-    function hideFiles()
-    {
-        defaults write com.apple.finder AppleShowAllFiles NO
-        killall Finder /System/Library/CoreServices/Finder.app
-        echo 'Hidden files not invisible'
-    }
 
 
 #   Networking Aliases
     alias myip='curl ip.appspot.com'
+    
 
 
-# Activation bash completion
-    if [ -f $(brew --prefix)/etc/bash_completion ]; then
-        source $(brew --prefix)/etc/bash_completion
-    fi
-
-
-# Add bash completion for git
+#   Add bash completion for git
     source ~/.git-completion.bash
+    
+    
+#   Helper Functions
+#   ------------------------------------------------------------
 
-# Backup .profile to Dropbox
-    cp ~/.profile ~/Dropbox/Hobbies/Mac/_.profile
+    command_exists () { hash "$1" > /dev/null 2>&1; }
+    
+    
+    
+#   Mac-only Commands
+    if [ "$(uname -s)" == "Darwin" ]; then
+
+#       Mac Hidden Files
+        function showFiles() {
+            defaults write com.apple.finder AppleShowAllFiles YES
+            killall Finder /System/Library/CoreServices/Finder.app
+            echo 'Hidden files now visible'
+        }
+        function hideFiles() {
+            defaults write com.apple.finder AppleShowAllFiles NO
+            killall Finder /System/Library/CoreServices/Finder.app
+            echo 'Hidden files now invisible'
+        }
+        
+#       Activate bash completion
+        if ! command_exists brew; then
+            echo "bash-completion not available (try 'brew install bash-completion' first)"
+        elif ! [ -f $(brew --prefix)/etc/bash_completion ]; then
+            echo "$(brew --prefix)/etc/bash_completion missing."
+        else 
+            source $(brew --prefix)/etc/bash_completion
+        fi
+    fi
 
