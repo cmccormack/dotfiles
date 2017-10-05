@@ -1,3 +1,2 @@
-if [ -f ~/.bashrc ]; then
-    source ~/.bashrc
-fi
+test -f ~/.profile && . ~/.profile
+test -f ~/.bashrc && . ~/.bashrc
