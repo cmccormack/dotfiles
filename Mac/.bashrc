@@ -13,22 +13,25 @@
 #   1.  ENVIRONMENT CONFIGURATION
 #   -------------------------------
 
-    SB_BLUE="\[\033[1;34m\]"
-    SB_CYAN="\[\033[0;36m\]"
-    SB_YELLOW="\[\033[0;93m\]"
-    SB_OFF="\[\033[0m\]"
+    SB_BOLD="\e[1m"
+    SB_DIM="\e[2m"
+    SB_BLUE="\e[1;34m"
+    SB_CYAN="\e[0;36m"
+    SB_LIGHTCYAN="\e[96m"
+    SB_YELLOW="\e[0;93m"
+    SB_OFF="\e[0m"
+    SB_GREEN="\e[32m"
+    SB_LIGHTGREEN="\e[92m"
 
 #   Change Prompt
 #   ------------------------------------------------------------
-#   export PS1="\$(date +%k:%M:%S) (\u)[\w]# "
-    export PS1="\`if [ \$? != 0 ]; then echo 💥 ; else echo 🍺  ; fi\` $SB_YELLOW (\u) $SB_CYAN[\W]# $SB_OFF"
+    export PS1="┌─ \`if [ \$? != 0 ]; then echo 💥 ; else echo 🍺  ; fi\`  ($SB_YELLOW$SB_BOLD\u$SB_OFF@$SB_YELLOW\h) $SB_LIGHTGREEN\t $SB_LIGHTCYAN[\W] $SB_OFF\n└────► # "
 
 
 #   Set Paths
 #   ------------------------------------------------------------
     export PATH="/usr/local/bin:$PATH"
     
-
 
 #   Set Default Editor (change 'Nano' to the editor of your choice)
 #   ------------------------------------------------------------
@@ -44,8 +47,8 @@
 #   (this is all commented out as I use Mac Terminal Profiles)
 #   from http://osxdaily.com/2012/02/21/add-color-to-the-terminal-in-mac-os-x/
 #   ------------------------------------------------------------
-    export CLICOLOR=1
-    export LSCOLORS=GxFxCxDxBxegedabagaced
+#   export CLICOLOR=1
+#   export LSCOLORS=GxFxCxDxBxegedabagaced
 
 
 
@@ -71,8 +74,12 @@
     
 
 
-#   Add bash completion for git
-    source ~/.git-completion.bash
+#   Add bash completion for git if exists
+    if [ -f ~/.git-completion.bash ]; then
+        source ~/.git-completion.bash
+    else
+        echo ".git-completion.bash file not found"
+    fi
     
     
 #   Helper Functions
@@ -81,9 +88,8 @@
     command_exists () { hash "$1" > /dev/null 2>&1; }
     os_version () { echo $(uname -s); }
     
-    
-    
-#   Mac-only Commands
+
+#   Mac OSX-only Commands
     if [ $(os_version) == "Darwin" ]; then
     
 #       Mac Hidden Files
@@ -106,5 +112,7 @@
         else 
             source $(brew --prefix)/etc/bash_completion
         fi
+        echo "Mac Commands Loaded"
     fi
+
 
