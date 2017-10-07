@@ -29,53 +29,59 @@
     GREEN="\e[32m"
     L_GRAY="\e[37m"
     D_GRAY="\e[90m"
+    ORANGE="\e[38;5;215m"
 #   Disable Colors
     Rcol="\e[0m"
 
 #   Prompt
 #   ------------------------------------------------------------
 
+#   ASCII Symbols │ ┤ ├ ┘ ┌ ┐
 
 #   Prompt Variables
     PROMPT_COMMAND=__prompt_command
     
     function __prompt_command() {
       local EXIT="$?"
-
       # Return Status Badges
-      local ENABLE_EMOJI=false
-      local SUCCESS_BADGE="$L_GREEN✔$Rcol "
+      local ENABLE_EMOJI=true
+      local SUCCESS_BADGE="${L_GREEN}✔${Rcol} "
       local EMOJI_SUCCESS_BADGE="🍺  "
-      local FAIL_BADGE="$L_RED✸$Rcol "
+      local FAIL_BADGE="${L_RED}✸${Rcol} "
       local EMOJI_FAIL_BADGE="💥  "
 
-      local USER="$BOLD$L_CYAN\u$Rcol"
-      local HOST="$D_GRAY\h$Rcol"
-      echo "Calling parse_git_branch"
-      local GIT_BRANCH=`parse_git_branch`
-      echo $GIT_BRANCH
-      echo "Finished calling parse_git_branch"
+      local USER="${BOLD}${L_GREEN}\u${Rcol}"
+      local HOST="${L_GREEN}\h${Rcol}"
+      # echo "Calling parse_git_branch"
+      local Time="${ORANGE}\t${Rcol}"
+      local GIT_BRANCH="${CYAN}`my_git_branch`${Rcol}"
+      local Path="${YELLOW}\W${Rcol}"
+      # echo "Finished calling parse_git_branch"
 
       if $ENABLE_EMOJI; then
         SUCCESS_BADGE=$EMOJI_SUCCESS_BADGE
         FAIL_BADGE=$EMOJI_FAIL_BADGE
       fi
 
+      local Git_Status="`my_git_status`"
+      echo ${Git_Status}
+
       local BADGE=$([ $EXIT != 0 ] && echo $FAIL_BADGE || echo $SUCCESS_BADGE)
 
       PS1="\n"
-      PS1+="┌─ $BADGE  $USER @ $HOST \t \W "  ##$GIT_BRANCH"
-      PS1+="\n└─────► # "
+      PS1+="┌─ ${BADGE}  ─┤${USER}@${HOST}├─┤${Time}├─┤${Path}"
+      if [ ! "${GIT_BRANCH}" == "" ]; then PS1+="├─┤${GIT_BRANCH}"; fi
+      PS1+="│\n└─► # "
 
     }
 
 
     # Use if terminal has full unicode support
-    # export PS1="\n┌─ \`if [ \$? != 0 ]; then echo 💥 ; else echo 🍺  ; fi\`  $L_YELLOW($BOLD\u$Rcol@$L_YELLOW\h) $L_GREEN\t $L_CYAN[\W] $Rcol\`parse_git_branch\`\n└────► # "
+    # export PS1="\n┌─ \`if [ \$? != 0 ]; then echo 💥 ; else echo 🍺  ; fi\`  ${L_YELLOW}(${BOLD}\u${Rcol}@${L_YELLOW}\h) ${L_GREEN}\t ${L_CYAN}[\W] ${Rcol}\`parse_git_branch\`\n└────► # "
     # Use if terminal supports special characters
-    # export PS1="\n┌─ \`if [ \$? != 0 ]; then echo $RED✸ ; else echo $L_GREEN✔  ; fi\` $L_YELLOW($BOLD\u$Rcol@$L_YELLOW\h) $L_GREEN\t $L_CYAN[\W] $Rcol\n└────► # "
+    # export PS1="\n┌─ \`if [ \$? != 0 ]; then echo ${RED}✸ ; else echo ${L_GREEN}✔  ; fi\` ${L_YELLOW}(${BOLD}\u${Rcol}@${L_YELLOW}\h) ${L_GREEN}\t ${L_CYAN}[\W] ${Rcol}\n└────► # "
     # Use if terminal does not support special characters (eg. Windows CMD)
-    # export PS1="\n┌─ \`if [ \$? != 0 ]; then echo $RED X ; else echo $L_GREEN O  ; fi\`  $L_YELLOW$BOLD(\u$Rcol@$L_YELLOW\h) $L_GREEN\t $L_CYAN[\W] $Rcol\n└────> # "
+    # export PS1="\n┌─ \`if [ \$? != 0 ]; then echo ${RED} X ; else echo ${L_GREEN} O  ; fi\`  ${L_YELLOW}${BOLD}(\u${Rcol}@${L_YELLOW}\h) ${L_GREEN}\t ${L_CYAN}[\W] ${Rcol}\n└────> # "
 
 
 #   Set Paths
@@ -136,21 +142,47 @@
 
     command_exists () { hash "$1" > /dev/null 2>&1; }
     os_version () { echo $(uname -s); }
-    color() { echo "$1$2$Rcol"; }
+    color() { echo "$1$2${Rcol}"; }
+
+
+
+
+
+function my_git_branch(){
+    echo `git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
+}
+
+function my_git_status(){
+
+  ## Get status and branch and replace newline (\n) with colon (:)
+  local Status="$(git status --porcelain 2>/dev/null | tr '\n' ':')"
+
+  echo "$(echo ${Status} | grep -v "^$" | wc -l | tr -d ' ' )"
+  echo ${Status}
+}
+
+
+
+
+
 
 
 # get current branch in git repo
 function parse_git_branch() {
   
-  BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
-  if [ ! "${BRANCH}" == "" ]
-  then
-    STAT=`parse_git_dirty`
-    echo "$CYAN(${BRANCH}$Rcol${STAT}$CYAN)$Rcol"
-  else
-    echo ""
-  fi
+  local Branch=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
+  echo ${Branch}
+
+# if [ ! "${BRANCH}" == "" ]
+#  then
+#    STAT=`parse_git_dirty`
+#    echo "$CYAN(${BRANCH}$Rcol${STAT}$CYAN)$Rcol"
+#  else
+#    echo ""
+#  fi
 }
+
+
 
 # get current status of git repo
 function parse_git_dirty {
@@ -174,13 +206,13 @@ function parse_git_dirty {
   # fi
   # if [ "${untracked}" == "0" ]; then
   #   bit='?'
-  #   bits="$(color $L_YELLOW $bit)$bits"
+  #   bits="$(color ${L_YELLOW} $bit)$bits"
   # fi
   # if [ "${deleted}" == "0" ]; then
   #   bits="x${bits}"
   # fi
   # if [ "${dirty}" == "0" ]; then
-  #   bits="$RED!$Rcol${bits}"
+  #   bits="${RED}!${Rcol}${bits}"
   # fi
   # if [ ! "${bits}" == "" ]; then
   #   echo "${bits}"
@@ -188,6 +220,7 @@ function parse_git_dirty {
   #   echo ""
   # fi
 }
+
 
 
 
@@ -218,7 +251,7 @@ function git_status(){
         if [ "$GChanges" == "0" ]; then
           local GitCol=$Gre
           else
-          local GitCol=$Red
+          local GitCol=${RED}
         fi
         ### End Test Changes ### }}}
 
