@@ -14,6 +14,7 @@
 #   -------------------------------
 
     SB_BOLD="\e[1m"
+    SB_RED="\e[31m"
     SB_DIM="\e[2m"
     SB_BLUE="\e[1;34m"
     SB_CYAN="\e[0;36m"
@@ -25,7 +26,12 @@
 
 #   Change Prompt
 #   ------------------------------------------------------------
-    export PS1="┌─ \`if [ \$? != 0 ]; then echo 💥 ; else echo 🍺  ; fi\`  ($SB_YELLOW$SB_BOLD\u$SB_OFF@$SB_YELLOW\h) $SB_LIGHTGREEN\t $SB_LIGHTCYAN[\W] $SB_OFF\n└────► # "
+    # Use if terminal has full unicode support
+    export PS1="\n┌─ \`if [ \$? != 0 ]; then echo 💥 ; else echo 🍺  ; fi\`  $SB_YELLOW($SB_BOLD\u$SB_OFF@$SB_YELLOW\h) $SB_LIGHTGREEN\t $SB_LIGHTCYAN[\W] $SB_OFF\n└────► # "
+    # Use if terminal supports special characters
+    # export PS1="\n┌─\`if [ \$? != 0 ]; then echo $SB_RED✸ ; else echo $SB_LIGHTGREEN✔  ; fi\` $SB_YELLOW($SB_BOLD\u$SB_OFF@$SB_YELLOW\h) $SB_LIGHTGREEN\t $SB_LIGHTCYAN[\W] $SB_OFF\n└────► # "
+    # Use if terminal does not support special characters (eg. Windows CMD)
+    # export PS1="\n┌─ \`if [ \$? != 0 ]; then echo $SB_RED X ; else echo $SB_LIGHTGREEN O  ; fi\`  $SB_YELLOW$SB_BOLD(\u$SB_OFF@$SB_YELLOW\h) $SB_LIGHTGREEN\t $SB_LIGHTCYAN[\W] $SB_OFF\n└────> # "
 
 
 #   Set Paths
@@ -44,7 +50,6 @@
 
 
 #   Add color to terminal
-#   (this is all commented out as I use Mac Terminal Profiles)
 #   from http://osxdaily.com/2012/02/21/add-color-to-the-terminal-in-mac-os-x/
 #   ------------------------------------------------------------
 #   export CLICOLOR=1
