@@ -34,10 +34,6 @@
     # export PS1="\n┌─ \`if [ \$? != 0 ]; then echo $SB_RED X ; else echo $SB_LIGHTGREEN O  ; fi\`  $SB_YELLOW$SB_BOLD(\u$SB_OFF@$SB_YELLOW\h) $SB_LIGHTGREEN\t $SB_LIGHTCYAN[\W] $SB_OFF\n└────> # "
 
 
-#   Set Paths
-#   ------------------------------------------------------------
-    export PATH="/usr/local/bin:$PATH"
-    
 
 #   Set Default Editor (change 'Nano' to the editor of your choice)
 #   ------------------------------------------------------------
@@ -47,14 +43,6 @@
 #   from this: http://hints.macworld.com/comment.php?mode=view&cid=24491
 #   ------------------------------------------------------------
     export BLOCKSIZE=1k
-
-
-#   Add color to terminal
-#   from http://osxdaily.com/2012/02/21/add-color-to-the-terminal-in-mac-os-x/
-#   ------------------------------------------------------------
-#   export CLICOLOR=1
-#   export LSCOLORS=GxFxCxDxBxegedabagaced
-
 
 
 #   Set aliases
