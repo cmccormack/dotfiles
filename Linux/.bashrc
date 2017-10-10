@@ -15,24 +15,25 @@
 #   -------------------------------
 
 #   Set Text Formatting
-    BOLD="\e[1m"
+    BOLD="\[\e[1m\]"
 #   Set Text Foreground Colors
-    RED="\e[31m"
-    L_RED="\e[91m"
-    DIM="\e[2m"
-    BLUE="\e[34m"
-    CYAN="\e[36m"
-    L_CYAN="\e[96m"
-    YELLOW="\e[33m"
-    L_YELLOW="\e[93m"
-    ORANGE="\e[38;5;215m"
-    L_GREEN="\e[92m"
-    GREEN="\e[32m"
-    L_GRAY="\e[37m"
-    D_GRAY="\e[90m"
-    WHITE="\e[97m"
+    RED="\[\e[31m\]"
+    L_RED="\[\e[91m\]"
+    DIM="\[\e[2m\]"
+    BLUE="\[\e[34m\]"
+    MAGENTA="\[\e[35m\]"
+    CYAN="\[\e[36m\]"
+    L_CYAN="\[\e[96m\]"
+    YELLOW="\[\e[33m\]"
+    L_YELLOW="\[\e[93m\]"
+    ORANGE="\[\e[38;5;215m\]"
+    L_GREEN="\[\e[92m\]"
+    GREEN="\[\e[32m\]"
+    L_GRAY="\[\e[37m\]"
+    D_GRAY="\[\e[90m\]"
+    WHITE="\[\e[97m\]"
 #   Disable Colors
-    Rcol="\e[0m"
+    Rcol="\[\e[0m\]"
 
 #   Prompt
 #   ------------------------------------------------------------
