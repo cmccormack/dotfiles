@@ -10,6 +10,10 @@
 #   3. ~/.profile
 
 
+#   Load alternate shell
+#   -------------------------------
+#   bash -c zsh
+
 #   -------------------------------
 #   1.  ENVIRONMENT CONFIGURATION
 #   -------------------------------
