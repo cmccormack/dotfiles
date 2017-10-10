@@ -75,7 +75,7 @@
       PS1="\n"
       PS1+="${WHITE}┌─${Rcol} ${BADGE}  ${User}@${Host} ${Time} ${WHITE}[${Rcol}${Path}${WHITE}]${Rcol}"
       if [ ! "${Git_Branch}" == "" ]; then 
-        Git_Branch="${CYAN}${Git_Branch}${Rcol}"
+        Git_Branch="${L_CYAN}${Git_Branch}${Rcol}"
         PS1+=" (${Git_Branch} ${Mod})"; fi
       PS1+="\n${WHITE}└─► ${Rcol}# "
     }
@@ -146,7 +146,7 @@
 
 #   Mac OSX-only Commands
     if [ $(os_version) == "Darwin" ]; then
-    
+
       alias ls="ls -G"
     
 #     Mac Hidden Files
