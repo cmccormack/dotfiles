@@ -5,7 +5,7 @@
 1. Install Windows Subsystem for Linux.
     * Go to `Settings -> Update and Security -> For developers` and change `Sideload apps` setting to `Developer mode`
 
-2. Enable Windows Subsystem for Linux (Beta)
+2. *Enable Windows Subsystem for Linux (Beta) *
     * Open `command prompt` and type `OptionalFeatures.exe` and enable `Windows Subsystem for Linux (Beta)` then reboot your PC. After rebooting you need to open command prompt and use `bash` command. Then begin automatic downloading and installation of Linux Subsystem.
 
 3. Install Hyper Terminal Server
@@ -56,11 +56,11 @@
     * Themes can be found in `~/.oh-my-zsh/themes`.
         * Use only the first part of the name (eg. `~/.oh-my-zsh/themes/agnoster.zsh-theme` > `agnoster`)
     * Edit the THEME variable in `~/.zshrc`:
-        ```zsh
+        ```sh
         nano ~/.zshrc
         ```
         ```
-        ██ GNU nano 2.2.6 ████████ File: ~/.zshrc ██████████████████████████████
+                    GNU nano 2.2.6          File: ~/.zshrc
         ...
         # Set name of the theme to load. Optionally, if you set this to "random"
         # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -69,9 +69,7 @@
         ZSH_THEME="agnoster"
         ...
         ```
-        ```
-        Exit nano [ctrl+x]
-        ```
+        Exit nano `[ctrl+x]`
 
 9. (Optional) Install Powerline Fonts for themes that use them (eg. agnoster, ...)
     * Go to official [Powerline Fonts repo](https://github.com/powerline/fonts) for the latest instructions.
@@ -81,5 +79,5 @@
         * Update `.hyper.js` configuration to use font:
             * `[ctrl+,]` or `[≡] > Edit > Preferences...`
             ```js
-            fontFamily: 'Ubuntu Mono derivative Powerline Regular, Menlo, [...]`
+            fontFamily: 'Ubuntu Mono derivative Powerline Regular, Menlo, [...]'
             ```
