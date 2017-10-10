@@ -13,16 +13,17 @@
 #   1.  ENVIRONMENT CONFIGURATION
 #   -------------------------------
 
-    SB_BOLD="\e[1m"
-    SB_RED="\e[31m"
-    SB_DIM="\e[2m"
-    SB_BLUE="\e[1;34m"
-    SB_CYAN="\e[0;36m"
-    SB_LIGHTCYAN="\e[96m"
-    SB_YELLOW="\e[0;93m"
-    SB_OFF="\e[0m"
-    SB_GREEN="\e[32m"
-    SB_LIGHTGREEN="\e[92m"
+    SB_BOLD="\[\e[1m\]"
+    SB_RED="\[\e[31m\]"
+    SB_DIM="\[\e[2m\]"
+    SB_MAGENTA="\[\e[35m\]"
+    SB_BLUE="\[\e[1;34m\]"
+    SB_CYAN="\[\e[0;36m\]"
+    SB_LIGHTCYAN="\[\e[96m\]"
+    SB_YELLOW="\[\e[0;93m\]"
+    SB_OFF="\[\e[0m\]"
+    SB_GREEN="\[\e[32m\]"
+    SB_LIGHTGREEN="\[\e[92m\]"
 
 #   Change Prompt
 #   ------------------------------------------------------------
