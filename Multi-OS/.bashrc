@@ -76,13 +76,29 @@
       if [ "${Mod}" -gt 0 ]; then Mod="${YELLOW}●${Rcol}"; else Mod="${L_GREEN}●${Rcol}"; fi
 
 #     Build PS1 String
-      PS1="\n"
-      PS1+="${WHITE}┌─${Rcol} ${BADGE}  ${User}@${Host} ${Time} ${WHITE}[${Rcol}${Path}${WHITE}]${Rcol}"
+      # PS1="\n"
+      # PS1+="${WHITE}┌─${Rcol} ${BADGE}  ${User}@${Host} ${Time} ${WHITE}[${Rcol}${Path}${WHITE}]${Rcol}"
+      # if [ ! "${Git_Branch}" == "" ]; then 
+      #   Git_Branch="${L_CYAN}${Git_Branch}${Rcol}"
+      #   PS1+=" (${Git_Branch} ${Mod})"; fi
+      # PS1+="\n${WHITE}└─► ${Rcol}# "
+
+
+      Verbose_Theme="\n${WHITE}┌─${Rcol} ${BADGE}  ${User}@${Host} ${Time} ${WHITE}[${Rcol}${Path}${WHITE}]${Rcol}"
       if [ ! "${Git_Branch}" == "" ]; then 
-        Git_Branch="${L_CYAN}${Git_Branch}${Rcol}"
-        PS1+=" (${Git_Branch} ${Mod})"; fi
-      PS1+="\n${WHITE}└─► ${Rcol}# "
+        Git_Branch="${L_CYAN}${Git_Branch}${Rcol}"; Verbose_Theme+=" (${Git_Branch} ${Mod})"; fi
+      Verbose_Theme+="\n${WHITE}└─► ${Rcol}# "
+
+      Simpler_Theme="\n${YELLOW}\w${Rcol}"
+      if [ ! "${Git_Branch}" == "" ]; then 
+        Git_Branch="${L_CYAN}${Git_Branch}${Rcol}"; Simpler_Theme+=" [${Git_Branch}${Mod}]"; fi
+      Simpler_Theme+="\n ${BOLD}$([ ${EXIT} != 0 ] && echo ${L_RED}\$${Rcol} || echo ${L_GREEN}\$${Rcol})${Rcol} "
+
+      Theme=$Simpler_Theme
+
+      PS1=$Theme
     }
+
     
 
 #   Set Default Editor (change 'Nano' to the editor of your choice)
@@ -99,11 +115,19 @@
 #   Set aliases
 #   ------------------------------------------------------------
     
+
+#   Enable color support for commands if supported
+    if [ -x /usr/bin/dircolors ]; then
+        alias ls='ls --color=auto'
+        alias grep='grep --color=auto'
+        alias fgrep='fgrep --color=auto'
+        alias egrep='egrep --color=auto'
+    fi
+
 #   General Aliases
-    alias grep='grep'
-    alias ll="ls -lahF"
-    alias la="ls -lahF"
-    alias l="ls -lhF"
+    alias l="ls -CF"
+    alias ll="ls -lhF"
+    alias la="ls -lAhF"
     alias py="python3.3"
     alias rm="rm -i"
     alias cp="cp -iv"
@@ -116,6 +140,7 @@
 #   Networking Aliases
     alias myip='curl ip.appspot.com'
     
+
 
 
 #   Add bash completion for git if exists
