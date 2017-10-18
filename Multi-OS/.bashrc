@@ -76,14 +76,6 @@
       if [ "${Mod}" -gt 0 ]; then Mod="${YELLOW}●${Rcol}"; else Mod="${L_GREEN}●${Rcol}"; fi
 
 #     Build PS1 String
-      # PS1="\n"
-      # PS1+="${WHITE}┌─${Rcol} ${BADGE}  ${User}@${Host} ${Time} ${WHITE}[${Rcol}${Path}${WHITE}]${Rcol}"
-      # if [ ! "${Git_Branch}" == "" ]; then 
-      #   Git_Branch="${L_CYAN}${Git_Branch}${Rcol}"
-      #   PS1+=" (${Git_Branch} ${Mod})"; fi
-      # PS1+="\n${WHITE}└─► ${Rcol}# "
-
-
       Verbose_Theme="\n${WHITE}┌─${Rcol} ${BADGE}  ${User}@${Host} ${Time} ${WHITE}[${Rcol}${Path}${WHITE}]${Rcol}"
       if [ ! "${Git_Branch}" == "" ]; then 
         Git_Branch="${L_CYAN}${Git_Branch}${Rcol}"; Verbose_Theme+=" (${Git_Branch} ${Mod})"; fi
@@ -114,7 +106,6 @@
 
 #   Set aliases
 #   ------------------------------------------------------------
-    
 
 #   Enable color support for commands if supported
     if [ -x /usr/bin/dircolors ]; then
@@ -135,11 +126,14 @@
     alias mkdir="mkdir -pv"
     alias less="less -FSRXc"
     alias c="clear"
-    alias please='sudo "$BASH" -c "$(history -p !!)"' ## Runs previous command as sudo
 
-#   Networking Aliases
-    alias myip='curl ip.appspot.com'
-    
+#   Special Aliases
+
+    ## Runs previous command as sudo
+    alias please='sudo "$BASH" -c "$(history -p !!)"' 
+
+    ## Networking Aliases
+    alias myip='curl ipinfo.io/ip'
 
 
 
@@ -158,13 +152,11 @@
     os_version () { echo $(uname -s); }
     color() { echo "$1$2${Rcol}"; }
 
-
-
-    function my_git_branch(){
+    my_git_branch(){
       echo `git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
     }
 
-    function my_git_status(){
+    my_git_status(){
       # Get status and branch and replace newline (\n) with colon (:)
       local Status="$(git status --porcelain 2>/dev/null | tr '\n' ':')"
       echo ${Status}
