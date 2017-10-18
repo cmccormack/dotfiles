@@ -86,7 +86,7 @@
         Git_Branch="${L_CYAN}${Git_Branch}${Rcol}"; Simpler_Theme+=" [${Git_Branch}${Mod}]"; fi
       Simpler_Theme+="\n ${BOLD}$([ ${EXIT} != 0 ] && echo ${L_RED}\$${Rcol} || echo ${L_GREEN}\$${Rcol})${Rcol} "
 
-      Theme=$Simpler_Theme
+      Theme=$Verbose_Theme
 
       PS1=$Theme
     }
