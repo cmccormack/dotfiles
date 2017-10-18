@@ -2,11 +2,11 @@
 
 #  ---------------------------------------------------------------------------
 #
-#  Description:  This file is loaded when connecting via Interactive Login
+#  Description:  This file is loaded when connecting via Interactive Login session
 #
 #  Execution load order:
 #   1. /etc/profile
-#   2. Executes only first file found from the following:
+#   2. Execute only first file found from the following files:
 #     2A. ~/.bash_profile
 #     2B. ~/.bash_login
 #     2C. ~/.profile
@@ -22,12 +22,24 @@
 #   Source Configuration Files
 #   ------------------------------------------------------------
 
-test -f ~/.profile && . ~/.profile
+#   Load .bashrc from home directory.
+#   BASH does NOT execute .bashrc when connecting via Interactive Login, but does execute
+#       on Interactive Non-Login shell launch (eg. `$ bash`)
 test -f ~/.bashrc && . ~/.bashrc
+
+#   Load .profile from home directory.
+#   This file will load automatically if ~/.bash_profile or ~/.bash_login don't exist
+#   Disable unless required
+# test -f ~/.profile && . ~/.profile
+
 
 
 #   Set Paths
 #   ------------------------------------------------------------
+
+function path_exists(){
+
+}
     if ! $(echo $PATH | grep -q "/usr/local/bin:"); then
       export PATH="/usr/local/bin:$PATH"
     fi
