@@ -1,3 +1,5 @@
+set historylog
+set nowrap
+set suspend
+
 include /usr/local/lib/nano/*.nanorc
-
-
