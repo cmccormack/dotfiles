@@ -1,11 +1,3 @@
-Copy `.bash_profile` and `.bashrc` to User Dir:
--------------
-```sh
-cp .bash_profile ~/.bash_profile
-cp .bashrc ~/.bashrc
-source .bashrc
-```
-
 Change Message of the Day (MotD):
 -------------
 ```sh
