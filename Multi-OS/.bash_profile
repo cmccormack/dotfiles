@@ -37,9 +37,13 @@ test -f ~/.bashrc && . ~/.bashrc
 #   Set Paths
 #   ------------------------------------------------------------
 
-function path_exists(){
-
-}
-    if ! $(echo $PATH | grep -q "/usr/local/bin:"); then
-      export PATH="/usr/local/bin:$PATH"
+function add_path() {
+    if [ ! $(echo "$PATH" | tr ":" "\n" | grep -c "^$1/*$") -gt 0 ]; then 
+        export PATH="$1:$PATH"
     fi
+}
+    add_path "/usr/local/bin"
+    
+    #if ! $(echo $PATH | grep -q "/usr/local/bin:"); then
+    #  export PATH="/usr/local/bin:$PATH"
+    #fi
