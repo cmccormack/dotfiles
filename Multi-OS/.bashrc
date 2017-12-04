@@ -181,6 +181,11 @@
           killall Finder /System/Library/CoreServices/Finder.app
           echo 'Hidden files now invisible'
       }
+#     Reset Launch Services - Fixes 'Open With > Fetching...' issue
+      function resetServices() {
+          /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -kill -seed -r -f -v -domain local -domain user -domain system
+          echo 'Launch Services Reset!'
+      }
       
 #     Activate bash completion
       if ! command_exists brew; then
