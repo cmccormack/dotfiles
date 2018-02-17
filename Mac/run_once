@@ -5,21 +5,26 @@ xcode-select --install
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 brew doctor
 brew update
-brew install bash-completion ssh-copy-id wget
-brew install caskroom/cask/brew-cask
+brew install bash-completion ssh-copy-id wget libidn2
 
-# Applications
+# Homebrew-Cask
+brew tap caskroom/cask
+
+# Cask-Applications
 brew cask install google-chrome
+brew cask install iterm2
 brew cask install dropbox
 brew cask install firefox
 brew cask install google-drive
 brew cask install evernote
-brew cask install spotify
-brew cask install vlc
-brew cask install steam
-brew cask install transmission
+
+# Cask-Utils
 brew cask install cyberduck
 brew cask install flux
 brew cask install keka
+brew cask install vlc
+
+# Cask-Other
+brew cask install transmission
+brew cask install steam
 brew cask install deluge
-brew cask install iterm2
