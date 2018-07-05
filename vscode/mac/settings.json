@@ -1,0 +1,35 @@
+{
+  "window.zoomLevel": 1,
+  "workbench.iconTheme": "eq-material-theme-icons-light",
+  "workbench.colorTheme": "Cobalt2",
+  "editor.fontFamily": "Fira Code",
+  "editor.fontSize": 16,
+  "editor.fontLigatures": true,
+  "editor.tabSize": 2,
+  "editor.rulers": [
+    80,
+    120
+  ],
+  "editor.multiCursorModifier": "ctrlCmd",
+  "editor.snippetSuggestions": "top",
+  "editor.formatOnPaste": true,
+  "editor.minimap.renderCharacters": false,
+  "editor.minimap.maxColumn": 80,
+  "editor.renderWhitespace": "all",
+  "eslint.autoFixOnSave": true,
+  "git.enabled": false,
+  "python.pythonPath": "/usr/local/bin/python3",
+  "python.linting.pylintEnabled": true,
+  "python.linting.enabled": true,
+  "materialTheme.fixIconsRunning": false,
+  "files.exclude": {
+    "**/tmp": true,
+    // "**/node_modules": true,
+    "**/bower_components": true
+  },
+  "files.watcherExclude": {
+    "**/tmp/**": true,
+    "**/node_modules/**": true,
+    "**/bower_components/**": true
+  }
+}
