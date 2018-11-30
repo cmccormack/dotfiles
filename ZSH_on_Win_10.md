@@ -5,18 +5,19 @@
 1. Install Windows Subsystem for Linux.
     * Go to `Settings -> Update and Security -> For developers` and change `Sideload apps` setting to `Developer mode`
 
-2. *Enable Windows Subsystem for Linux (Beta) *
+2. Enable Windows Subsystem for Linux (Beta)
     * Open `command prompt` and type `OptionalFeatures.exe` and enable `Windows Subsystem for Linux (Beta)` then reboot your PC. After rebooting you need to open command prompt and use `bash` command. Then begin automatic downloading and installation of Linux Subsystem.
+    * Up-to-date instructions can be found [here](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
 
 3. Install Hyper Terminal Server
     * Go to official [hyper terminal website](https://hyper.is/) and download latest version of terminal for Windows.
 
 4. (Optional) Install Node.js
-    * Go to offical [node.js website](https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions) for the latest instructions.
+    * Go to offical [node.js website](https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions-enterprise-linux-fedora-and-snap-packages) for the latest instructions.
     * At the time of writing, the instructions were as follows:
     ```sh
-    $ curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
-    $ sudo apt-get install -y nodejs
+    curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash -
+    sudo apt-get install -y nodejs
     ```
     * Validate proper installation:
     ```sh
@@ -26,16 +27,16 @@
     * May require session reload for changes to take effect.
 
 5. Install git
-    * Go to official [git-scm.com website](https://git-scm.com/book/id/v2/Getting-Started-Installing-Git) for the latest instructions.
+    * Go to official [git-scm.com website](https://git-scm.com/download/linux) for the latest instructions.
     * Installation using apt-get:
     ```sh
-    $ sudo apt-get install git -y
+    sudo apt-get install git -y
     ```
 
 6. Install ZSH
     * Installation using apt-get:
     ```sh
-    $ sudo apt-get install zsh
+    sudo apt-get install zsh
     ```
     * Enter shell: `$ bash-c zsh`
     * Go through setup wizard to customize the shell.
@@ -56,10 +57,10 @@
     * Themes can be found in `~/.oh-my-zsh/themes`.
         * Use only the first part of the name (eg. `~/.oh-my-zsh/themes/agnoster.zsh-theme` > `agnoster`)
     * Edit the THEME variable in `~/.zshrc`:
-        ```sh
+        ```zsh
         nano ~/.zshrc
         ```
-        ```
+        ```zsh
                     GNU nano 2.2.6          File: ~/.zshrc
         ...
         # Set name of the theme to load. Optionally, if you set this to "random"
