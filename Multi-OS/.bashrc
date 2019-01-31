@@ -148,8 +148,10 @@
 #   Helper Functions
 #   ------------------------------------------------------------
 
-    command_exists () { hash "$1" > /dev/null 2>&1; }
-    os_version () { echo $(uname -s); }
+    command_exists() { command -v "$1" > /dev/null 2>&1; }
+
+    os_version() { echo $(uname -s); }
+
     color() { echo "$1$2${Rcol}"; }
 
     my_git_branch(){
@@ -161,8 +163,6 @@
       local Status="$(git status --porcelain 2>/dev/null | tr '\n' ':')"
       echo ${Status}
     }
-
-
 
 
 #   Mac OSX-only Commands

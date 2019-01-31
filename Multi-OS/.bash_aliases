@@ -3,6 +3,7 @@
 # Git Functions
 # ---------------------------------------------------------------------------
 
+# Get the name of the current branch 
 function git_current_branch() {
   local ref
   ref=$(command git symbolic-ref --quiet HEAD 2> /dev/null)
@@ -14,11 +15,19 @@ function git_current_branch() {
   echo ${ref#refs/heads/}
 }
 
+# Get the name of the current repo
 function git_current_repository() {
   ref=$(git symbolic-ref HEAD 2> /dev/null) || \
   ref=$(git rev-parse --short HEAD 2> /dev/null) || return
   echo $(git remote -v | cut -d':' -f 2)
 }
+
+# Use hub in place of git if hub exists
+if ! [ -x "$(command -v hub)" ]; then
+  echo "GitHub Hub not installed"
+else
+  alias git="hub"
+fi
 
 # Git Aliases (sorted alphabetically)
 # ---------------------------------------------------------------------------
