@@ -7,12 +7,12 @@ Copy the following files to your local Keywords directory
 
 `Viptela.ini`
 
-Keyword files can be found [here](https://github.com/cmccormack/dotfiles/tree/master/securecrt/Keywords)
+Keyword files can be found [here](https://github.com/cmccormack/dotfiles/tree/master/SecureCRT/Keywords)
 
 <br>
 <br>
 
-#### Copy `cobalt` color scheme to `Color Schemes.ini`
+#### Copy `Cobalt` color scheme to `Color Schemes.ini`
 ```ini
 B:"Cobalt"=00000044
  01 01 01 01 fd dc 00 00 fd dc 00 00 fd dc 00 00 fd dc 00 00 fd dc 00 00 fd dc 00 00 fd dc 00 00
