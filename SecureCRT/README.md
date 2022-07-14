@@ -23,17 +23,17 @@ B:"Cobalt"=00000044
 <br>
 
 #### Change Color Scheme
-<img src="https://github.com/cmccormack/dotfiles/raw/master/securecrt/images/change_color_scheme.png" />
+<img src="https://github.com/cmccormack/dotfiles/raw/master/SecureCRT/images/change_color_scheme.png" />
 <br>
 <br>
 <br>
 
 #### Select Highlight Theme
-<img src="https://github.com/cmccormack/dotfiles/raw/master/securecrt/images/add_highlight__select_theme.png" />
+<img src="https://github.com/cmccormack/dotfiles/raw/master/SecureCRT/images/add_highlight__select_theme.png" />
 <br>
 <br>
 <br>
 
 #### Enable Highlight Color Style
-<img src="https://github.com/cmccormack/dotfiles/raw/master/securecrt/images/add_highlight__enable_color.png" />
+<img src="https://github.com/cmccormack/dotfiles/raw/master/SecureCRT/images/add_highlight__enable_color.png" />
 
