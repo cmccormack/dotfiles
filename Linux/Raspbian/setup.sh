@@ -2,7 +2,7 @@
 sudo apt update && sudo apt upgrade -y
 
 # Install tools
-sudo apt install -y curl git htop neovim zsh
+sudo apt install -y curl git htop neovim zsh dnsutils net-tools
 
 # Install various dev dependencies
 sudo apt install -y build-essential libssl-dev zlib1g-dev \ ca-certificates
