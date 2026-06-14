@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(ls *)",
+      "Bash(ls)",
+      "Bash(find *)",
+      "Bash(grep *)",
+      "Bash(git log *)",
+      "Bash(git log)",
+      "Bash(git status *)",
+      "Bash(git status)",
+      "Bash(git diff *)",
+      "Bash(git diff)",
+      "Bash(git show *)",
+      "Bash(git branch *)",
+      "Bash(git branch)",
+      "Bash(pwd)",
+      "Bash(wc *)",
+      "Bash(file *)",
+      "Bash(stat *)",
+      "Bash(echo *)",
+      "Bash(which *)",
+      "Bash(type *)",
+      "Bash(env)",
+      "Bash(printenv *)",
+      "Bash(cat *)",
+      "Bash(head *)",
+      "Bash(tail *)",
+      "Bash(sed *)",
+      "Bash(awk *)",
+      "Bash(sort *)",
+      "Bash(uniq *)",
+      "Bash(cut *)",
+      "Bash(tr *)",
+      "Bash(jq *)",
+      "Bash(xargs *)",
+      "Bash(strings *)",
+      "Bash(curl *)",
+      "Bash(wget *)",
+      "Bash(tar *)",
+      "Bash(unzip *)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash|Write|Edit|Read|Agent|WebFetch|WebSearch",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash $HOME/.claude/hooks/log-tool-use.sh",
+            "async": true
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash $HOME/.claude/hooks/log-session-stop.sh",
+            "async": true
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "bash ~/.claude/statusline/statusline.sh"
+  },
+  "effortLevel": "medium",
+  "voice": {
+    "mode": "hold",
+    "autoSubmit": true
+  },
+  "theme": "dark",
+  "voiceEnabled": true
+}
