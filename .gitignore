@@ -1,2 +1,16 @@
 .DS_Store
 node_modules
+
+# Python
+__pycache__/
+.pytest_cache/
+.venv/
+
+# Never commit SSH private keys even if accidentally added to manifest
+MacOS/home/ssh/id_*
+MacOS/home/ssh/id_*.*
+MacOS/home/ssh/known_hosts
+
+# Claude history and session logs
+Claude/history.jsonl
+.claude/logs/

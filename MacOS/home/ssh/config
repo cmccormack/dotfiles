@@ -1,0 +1,31 @@
+# Added by OrbStack: 'orb' SSH host for Linux machines
+# This only works if it's at the top of ssh_config (before any Host blocks).
+# This won't be added again if you remove it.
+Include ~/.orbstack/ssh/config
+
+Host 192.168.1.26
+  HostName 192.168.1.26
+  User chris
+
+Host Ubuntu24_VM_MackGamingPC
+  HostName Ubuntu24.local
+  User chris
+
+Host 192.168.1.25
+  HostName 192.168.1.25
+  User chris
+
+Host Ubuntu24.local
+  HostName Ubuntu24.local
+  User chris
+
+Host 192.168.1.184
+  HostName 192.168.1.184
+
+Host Mack-NAS.local
+  HostName Mack-NAS.local
+  User chris
+
+Host MackPi5.local
+  HostName MackPi5.local
+  User chris

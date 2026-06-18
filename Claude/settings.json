@@ -42,6 +42,7 @@
       "Bash(unzip *)"
     ]
   },
+  "model": "sonnet",
   "hooks": {
     "PreToolUse": [
       {
@@ -71,7 +72,7 @@
     "type": "command",
     "command": "bash ~/.claude/statusline/statusline.sh"
   },
-  "effortLevel": "medium",
+  "effortLevel": "high",
   "voice": {
     "mode": "hold",
     "autoSubmit": true
