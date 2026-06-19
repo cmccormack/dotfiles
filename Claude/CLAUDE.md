@@ -33,6 +33,9 @@
 - `/token-audit` — analyze `.claude/logs/session.jsonl`
 - `/web_fetch` — fetch JS-rendered pages via headless Chromium; tool at `~/.claude/tools/web_fetch.py`
 
+## Git
+- Never add `Co-Authored-By:` trailers to commit messages.
+
 ## Markdown Conventions
 - Human-readable markdown files (README, CLAUDE.md, docs, etc.) include a `[View on <SCM>](URL)` link under the title.
 
