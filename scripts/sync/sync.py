@@ -115,15 +115,16 @@ def link_entry(
 
     dest.parent.mkdir(parents=True, exist_ok=True)
 
+    moved = False
     if src.exists():
         if not skip_cred_check and not _cred_scan(src):
             return "blocked"
-        _row("move", src_raw, dest_rel, is_dir=src.is_dir())
         src.rename(dest)
+        moved = True
 
     if dest.exists():
         src.symlink_to(dest)
-        _row("link", src_raw, dest_rel, is_dir=dest.is_dir())
+        _row("move" if moved else "link", src_raw, dest_rel, is_dir=dest.is_dir())
         return "linked"
 
     _row("skip", src_raw, "not found")
