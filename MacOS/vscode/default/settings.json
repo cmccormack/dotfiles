@@ -1,0 +1,65 @@
+{
+    "terminal.integrated.fontFamily": "'FiraCode Nerd Font Mono'",
+    "remote.SSH.remotePlatform": {
+        "54.159.67.205": "linux",
+        "54.173.119.133": "linux"
+    },
+    "workbench.tree.indent": 24,
+    "workbench.tree.renderIndentGuides": "always",
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "editor.fontFamily": "'MesloLGS NF', 'Fira Code Retina', Consolas, 'Courier New', monospace",
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[jsonc]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "vsicons.dontShowNewVersionMessage": true,
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "workbench.startupEditor": "newUntitledFile",
+    "editor.suggest.showStatusBar": true,
+    "workbench.preferredDarkColorTheme": "Cobalt2",
+    "workbench.preferredLightColorTheme": "Solarized Light",
+    "workbench.colorTheme": "Claude Dark Theme",
+    "terminal.integrated.shellIntegration.enabled": true,
+    "redhat.telemetry.enabled": true,
+    "files.associations": {
+        "*.yaml": "ansible"
+    },
+    "[ansible]": {
+
+        "editor.detectIndentation": true,
+        "editor.insertSpaces": true,
+        "editor.tabSize": 2,
+        "editor.quickSuggestions": {
+            "comments": true,
+            "other": true,
+            "strings": true
+        }
+    },
+    "terminal.integrated.fontSize": 14,
+    "terminal.integrated.persistentSessionScrollback": 1000,
+    "editor.fontLigatures": true,
+    "[python]": {
+        "editor.formatOnType": true
+    },
+    "html.format.indentHandlebars": true,
+    "emmet.includeLanguages": {
+        "django-html": "html"
+    },
+    "github.copilot.preferredAccount": "cmccormack",
+    "terminal.integrated.fontLigatures": true,
+    "terminal.integrated.defaultProfile.linux": "zsh",
+    "editor.minimap.enabled": false,
+    "python.analysis.typeCheckingMode": "standard",
+    "[html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "claudeCode.preferredLocation": "panel",
+    "terminal.integrated.mouseWheelScrollSensitivity": 3,
+    "terminal.integrated.gpuAcceleration": "off"
+}
