@@ -57,17 +57,43 @@ def scan(target: Path) -> dict[Path, list[Finding]]:
     return {p: hits for p in paths if p.is_file() and (hits := scan_file(p))}
 
 
+def filter_file(path: Path) -> list[Finding]:
+    """Remove lines matching any credential pattern from path in-place. Returns removed findings."""
+    hits = scan_file(path)
+    if not hits:
+        return []
+    bad_lines = {line_num for line_num, *_ in hits}
+    lines = path.read_text(errors="replace").splitlines(keepends=True)
+    path.write_text("".join(ln for i, ln in enumerate(lines, 1) if i not in bad_lines))
+    return hits
+
+
 if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        print(f"Usage: {sys.argv[0]} <path> [<path>...]", file=sys.stderr)
-        sys.exit(1)
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Scan files for credentials.")
+    parser.add_argument("paths", nargs="+", metavar="path")
+    parser.add_argument(
+        "--filter",
+        action="store_true",
+        help="Remove flagged lines in-place instead of just reporting.",
+    )
+    args = parser.parse_args()
 
     found = False
-    for arg in sys.argv[1:]:
-        for path, hits in scan(Path(arg)).items():
+    for arg in args.paths:
+        target = Path(arg)
+        results = scan(target)
+        for path, hits in results.items():
             found = True
-            print(f"CREDENTIAL WARNING: {path}")
-            for line_num, label, line, match in hits:
-                print(f"  line {line_num} [{label}]: {highlight(line, match)}")
+            if args.filter:
+                removed = filter_file(path)
+                print(f"FILTERED {len(removed)} line(s) from {path}:")
+                for line_num, label, line, match in removed:
+                    print(f"  line {line_num} [{label}]: {highlight(line, match)}")
+            else:
+                print(f"CREDENTIAL WARNING: {path}")
+                for line_num, label, line, match in hits:
+                    print(f"  line {line_num} [{label}]: {highlight(line, match)}")
 
     sys.exit(1 if found else 0)
