@@ -6,8 +6,12 @@ commit via `/git-commit` ([commit-path.md](commit-path.md)).
 
 ## The three taboos (non-negotiable, owner-stated 2026-07-03)
 
-1. **No prod-NAS changes without a tested rollback.** Know the undo and have exercised
-   it (or an equivalent) before touching the DS918+.
+1. **No prod-NAS changes without a tested rollback.** Concrete bar (adopted 2026-07-04,
+   owner may amend): (a) a named rollback artifact created immediately before the change —
+   Synology snapshot, compose backup, or exported config, whichever that service's runbook
+   names; (b) the exact restore command written next to the change plan; (c) restore
+   exercised at least once for that service class, OR the plan explicitly marked
+   "restore untested — owner accepts risk".
 2. **No untested changes against live network gear.** UniFi controller/UDM writes get
    validated somewhere safe first. The controller is the network's control plane — a bad
    change can lock you out of the very tool needed to fix it.
