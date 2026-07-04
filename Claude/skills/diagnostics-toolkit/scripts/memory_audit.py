@@ -5,7 +5,8 @@ Scans <root>/*/memory/ (default root: ~/.claude/projects):
   - MEMORY.md <= 10 lines total
   - other .md files: body (non-frontmatter) <= 15 lines
   - forbidden YAML fields: top-level keys other than name/description/metadata,
-    metadata keys other than type (flags node_type, originSessionId, etc.)
+    metadata keys other than type/node_type/originSessionId (the latter two are
+    harness-managed, grandfathered 2026-07-04 — the memory daemon re-injects them)
   - dangling [[wiki]] links and relative (file.md) links
 
 Exit 0 clean, 1 on any violation, 2 on bad root.
@@ -19,7 +20,7 @@ from pathlib import Path
 INDEX_MAX = 10
 BODY_MAX = 15
 ALLOWED_TOP = {"name", "description", "metadata"}
-ALLOWED_META = {"type"}
+ALLOWED_META = {"type", "node_type", "originSessionId"}  # latter two harness-managed, grandfathered 2026-07-04
 
 
 def split_frontmatter(lines):

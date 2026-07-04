@@ -16,9 +16,9 @@ metadata:
 <body — max 15 lines total file budget>
 ```
 
-- `metadata.type` is the ONLY metadata field. Strip `node_type` and `originSessionId`
-  (auto-added by the memory system; `~/.claude/CLAUDE.md` orders their removal — legacy
-  files still carry them, remove when touching a file).
+- `metadata.type` is the only field YOU write. `node_type` and `originSessionId` are
+  harness-managed (the memory daemon re-injects them on write) — grandfathered
+  2026-07-04, leave them alone; any OTHER metadata key is forbidden.
 - Filename prefix matches type: `project_*`, `feedback_*`, `reference_*`, `user_*`.
 - **15-line budget** for the whole file, frontmatter included in practice — be brutal.
 

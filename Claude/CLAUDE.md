@@ -23,7 +23,7 @@
 
 ## Memory Budget
 - `MEMORY.md` index: 10 lines max — one line per artifact, path + one-phrase hook.
-- Memory files: 15 lines max. Strip YAML fields not in the schema (`node_type`, `originSessionId`, etc.).
+- Memory files: 15 lines max. Only `name`/`description`/`metadata.type` YAML; `node_type` and `originSessionId` are harness-managed — leave them, strip anything else.
 - L1 decisions are inline in memory files — one-sentence conclusions, not file pointers. "aiounifi rejected, use aiohttp" not "see sdk_research.md".
 - Prune anything derivable from the codebase (file paths, function names, architecture). Keep only non-obvious decisions and rejected alternatives.
 
