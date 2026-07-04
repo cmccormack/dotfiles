@@ -17,17 +17,17 @@ bundled skills (update-config, code-review) and any project skill over 500 words
    register PreToolUse matcher `Skill` in `dotfiles/Claude/settings.json` (lands live via
    the ~/.claude symlink). Expected effect: heavy-skill-inline violations become impossible,
    not remembered. Cost: one subprocess per Skill call (milliseconds).
-2. Lint on write: PostToolUse hook, matcher `Write|Edit`, running skill_lint.py /
-   memory_audit.py scoped to paths under `~/.claude/skills/` and `projects/*/memory/`
-   (exit fast on non-matching paths). Expected effect: oversized skills and forbidden YAML
-   fields blocked at creation — the 6-skill / 44-field baseline stops growing.
+2. Lint on write (candidate — not implemented): must be PreToolUse matcher `Write|Edit`,
+   NOT PostToolUse — verified 2026-07-04 against https://code.claude.com/docs/en/hooks.md:
+   PostToolUse fires after success and CANNOT block; only PreToolUse can prevent the
+   write. Scope by `tool_input.file_path` under `~/.claude/skills/` and
+   `projects/*/memory/`, exit fast otherwise. Cost: one subprocess per Write/Edit
+   portfolio-wide — measure before adopting (predict the token/latency delta first).
 3. Stop-hook sweep: append a one-line violation summary to session.jsonl at session end.
    Weakest hook variant (reports, does not prevent) but feeds Phase 3 trend data.
 
-Obligation — needs-verification: confirm the exact hook events and matcher strings
-supported by the CURRENT Claude Code build before writing config (`Skill` as a PreToolUse
-matcher works in macknet today; PostToolUse filtering semantics must be checked — ask the
-claude-code-guide agent or the official hooks docs). Do not guess event names.
+Status 2026-07-04: A1 (heavy-skill guard) is LIVE globally (dotfiles aaa7809); macknet's
+local copy retired (macknet 3b6ccb9). Hook events verified via claude-code-guide.
 
 Verification: trigger the matched tool once with a deliberate violation (e.g. invoke
 update-config inline; write a 40-line skill to a scratch path) — expect the block message.
