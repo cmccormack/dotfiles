@@ -80,6 +80,15 @@
   "hooks": {
     "PreToolUse": [
       {
+        "matcher": "Skill",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 $HOME/.claude/hooks/check_skill_size.py"
+          }
+        ]
+      },
+      {
         "matcher": "Bash|Write|Edit|Read|Agent|WebFetch|WebSearch",
         "hooks": [
           {
@@ -106,7 +115,7 @@
     "type": "command",
     "command": "bash ~/.claude/statusline/statusline.sh"
   },
-  "effortLevel": "high",
+  "effortLevel": "medium",
   "voice": {
     "mode": "hold",
     "autoSubmit": true
