@@ -31,7 +31,6 @@
         "*.yaml": "ansible"
     },
     "[ansible]": {
-
         "editor.detectIndentation": true,
         "editor.insertSpaces": true,
         "editor.tabSize": 2,
@@ -61,5 +60,7 @@
     },
     "claudeCode.preferredLocation": "panel",
     "terminal.integrated.mouseWheelScrollSensitivity": 3,
-    "terminal.integrated.gpuAcceleration": "off"
+    "terminal.integrated.gpuAcceleration": "off",
+    "terminal.integrated.macOptionClickForcesSelection": true,
+    "terminal.integrated.copyOnSelection": true
 }

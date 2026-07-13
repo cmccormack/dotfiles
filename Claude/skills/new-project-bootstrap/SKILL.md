@@ -7,8 +7,9 @@ description: Runbook for starting any new project or repo to house standard. Loa
 Two numbered runbooks that produce a repo meeting house standard: git on `main` as
 `Chris McCormack <mack.developer@gmail.com>` (GitHub: cmccormack), Python via uv with
 `requires-python` pinned, .gitignore covering env/cache/.claude noise, non-empty README +
-CLAUDE.md each with a `[View on GitHub]` link, `.claude/{research,logs}/` dirs, first
-commit via `/git-commit`. Retrofit variant reorders the same steps for existing dirs.
+CLAUDE.md each with a `[View on GitHub]` link, `.claude/{research,logs}/` dirs, a
+`.claude/chronicle.md` stub (see `chronicle-keeping` skill; feeds fieldnotes publishing),
+first commit via `/git-commit`. Retrofit variant reorders the same steps for existing dirs.
 
 ## Routing
 
