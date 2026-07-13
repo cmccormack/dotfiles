@@ -27,8 +27,10 @@ def main() -> int:
         print(
             f"warn-dashes: {count} em/en dash(es) written to {path}. "
             "User CLAUDE.md rule: restructure the sentence instead "
-            "(comma, colon, parentheses); dashes only where required verbatim."
+            "(comma, colon, parentheses); dashes only where required verbatim.",
+            file=sys.stderr,
         )
+        return 2
     return 0
 
 
