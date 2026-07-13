@@ -99,12 +99,28 @@
         ]
       }
     ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 $HOME/.claude/hooks/warn-dashes.py"
+          }
+        ]
+      }
+    ],
     "Stop": [
       {
         "hooks": [
           {
             "type": "command",
             "command": "bash $HOME/.claude/hooks/log-session-stop.sh",
+            "async": true
+          },
+          {
+            "type": "command",
+            "command": "bash $HOME/.claude/hooks/chronicle-append-check.sh",
             "async": true
           }
         ]
@@ -120,6 +136,7 @@
     "mode": "hold",
     "autoSubmit": true
   },
+  "skipDangerousModePermissionPrompt": true,
   "theme": "dark",
   "voiceEnabled": true
 }
