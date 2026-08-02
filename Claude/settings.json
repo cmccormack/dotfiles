@@ -5,6 +5,14 @@
       "WebSearch(*)",
       "WebFetch(domain:partner.steamgames.com)",
       "WebFetch(domain:github.com)",
+      "WebFetch(domain:emudeck.com)",
+      "WebFetch(domain:www.emudeck.com)",
+      "WebFetch(domain:flathub.org)",
+      "WebFetch(domain:steamgriddb.github.io)",
+      "WebFetch(domain:svelte.dev)",
+      "WebFetch(domain:developer.mozilla.org)",
+      "WebFetch(domain:www.w3.org)",
+      "WebFetch(domain:w3.org)",
       "WebFetch(domain:streetpea.github.io)",
       "WebFetch(domain:docs.lizardbyte.dev)",
       "WebFetch(domain:moonlight-stream.org)",
@@ -30,10 +38,11 @@
       "WebFetch(domain:nicedoc.io)",
       "WebFetch(domain:pcgamingwiki.com)",
       "WebFetch(domain:www.pcgamingwiki.com)",
+      "WebFetch(domain:gameplay.tips)",
       "Bash(python3 *)",
       "Bash(python *)",
-      "Write(/Users/chris/Projects/gaming/.claude/research/*)",
-      "Write(/Users/chris/Projects/gaming/.claude/cache/*)",
+      "Edit(/Users/chris/Projects/gaming/.claude/research/*)",
+      "Edit(/Users/chris/Projects/gaming/.claude/cache/*)",
       "Bash(ls *)",
       "Bash(ls)",
       "Bash(find *)",
@@ -79,7 +88,7 @@
       "Bash(unzip *)"
     ]
   },
-  "model": "sonnet",
+  "model": "fable",
   "hooks": {
     "PreToolUse": [
       {
