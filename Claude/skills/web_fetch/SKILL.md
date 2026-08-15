@@ -1,3 +1,8 @@
+---
+name: web_fetch
+description: Fetch a JS-rendered page via headless Chromium returning clean markdown JSON. Use for /web_fetch <url> or when a plain fetch returns empty/JS-shell content.
+---
+
 # web_fetch skill
 
 ## Summary

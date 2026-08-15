@@ -1,3 +1,8 @@
+---
+name: review-skill
+description: Audit a skill file or custom slash command for token efficiency, clarity, and correctness. Use for /review-skill <name> or when asked to review or tighten a skill.
+---
+
 # Review Skill
 
 ## Summary

@@ -1,3 +1,8 @@
+---
+name: token-audit
+description: Analyze .claude/logs/session.jsonl for tool usage patterns and token costs. Use for /token-audit or when asked where session tokens went.
+---
+
 # Token Audit
 
 ## Summary

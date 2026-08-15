@@ -1,3 +1,8 @@
+---
+name: git-commit
+description: Review, commit, correlate, and push the current session's changes. Use when asked to commit, /git-commit, or at session end with uncommitted work. Stages session-changed files, agent-reviews the diff, conventional commit, git-notes correlation, push.
+---
+
 # Git Commit Skill
 
 ## Summary

@@ -1,20 +1,21 @@
 # Skills: formats, triggering, size gate
 
-## Two formats coexist in ~/.claude/skills (= dotfiles/Claude/skills, live symlink)
+## One working format: SKILL.md directories (~/.claude/skills = dotfiles/Claude/skills, live symlink)
 
-1. **Legacy flat `<name>.md`** — no YAML frontmatter; plain purpose line first, optional
-   `Usage: /name <args>`, numbered `## Step N` sections or When/Invocation/Output/Notes.
-   Current files: `git-commit.md` (67 lines), `review-skill.md` (14), `token-audit.md` (14),
-   `web_fetch.md` (41). Status: production.
-2. **SKILL.md directory format** (this library): `<name>/SKILL.md` with YAML frontmatter
-   (`name:`, `description:`) + `references/*.md` for detail. The `description` is what the
-   harness matches against the conversation to auto-load the skill — make it trigger-rich
-   (verbs + situations), because a vague description means the skill silently never fires.
-   Status: new, in migration; claude-config is one of the first.
+**Flat `<name>.md` skills are dead** (found 2026-08-15): the harness stopped loading them,
+silently. Symptom: the skill vanishes from the slash-command list and the session skill
+inventory; typing its /name autocompletes to something else. The four legacy flat files
+(git-commit, review-skill, token-audit, web_fetch) were converted that day to
+`<name>/SKILL.md` with frontmatter, bodies unchanged; pickup was immediate, no restart.
 
-Per-project skills live in `<repo>/.claude/skills/*.md` (macknet: `unifi.md`, `synology.md`;
-steamdeck: `steam-input.md`, `ansible-review.md`, `ansible-run.md`) — flat format, opening
-with a standalone `## Summary`.
+**SKILL.md directory format**: `<name>/SKILL.md` with YAML frontmatter (`name:`,
+`description:`) + `references/*.md` for detail. The `description` is what the harness
+matches against the conversation to auto-load the skill: make it trigger-rich
+(verbs + situations), because a vague description means the skill silently never fires.
+
+Per-project skills: same rule, `<repo>/.claude/skills/<name>/SKILL.md`. Repos still
+carrying flat files (macknet: `unifi.md`, `synology.md`; steamdeck: `steam-input.md`,
+`ansible-review.md`, `ansible-run.md`) have invisible skills until converted.
 
 ## Rules (from ~/.claude/CLAUDE.md)
 - **Size gate:** project skills ≤30 lines + `## Summary` header ≤5 lines that works standalone.
@@ -27,7 +28,8 @@ with a standalone `## Summary`.
   Lint with `diagnostics-toolkit/scripts/skill_lint.py`.
 
 ## Debugging "my skill didn't fire"
-1. Is it listed? Flat: `ls ~/.claude/skills/*.md`. Directory: `ls ~/.claude/skills/*/SKILL.md`.
+0. Is it a flat `.md` file? Dead format; convert to `<name>/SKILL.md` first (see above).
+1. Is it listed? `ls ~/.claude/skills/*/SKILL.md`.
 2. Directory format: frontmatter must parse — `name:` matches dir name, `description:` present.
 3. Description too vague → rewrite with concrete trigger phrases; new sessions pick it up.
 4. Explicit `/name` invocation bypasses description matching — use it to isolate the problem.
