@@ -88,7 +88,7 @@
       "Bash(unzip *)"
     ]
   },
-  "model": "fable",
+  "model": "sonnet",
   "hooks": {
     "PreToolUse": [
       {
@@ -134,6 +134,10 @@
             "type": "command",
             "command": "bash $HOME/.claude/hooks/chronicle-append-check.sh",
             "async": true
+          },
+          {
+            "type": "command",
+            "command": "python3 $HOME/.claude/hooks/cycle-stop-check.sh"
           }
         ]
       }
