@@ -7,10 +7,11 @@ description: Resume cross-session work in the current repo or subfolder scope vi
 
 ## Summary
 Resolves the nearest tracker scope (references/scoping.md), reads RESUME.md if
-present to find the next task, correlates against TODO.md/ISSUES.md, surfaces
-preserved questions before starting work, works the task to a checkpoint or
-blocker, commits via `/git-commit`, writes a fresh RESUME.md/ISSUES.md before
-stopping. First run in an unscoped location offers to bootstrap.
+present to find the next task, correlates against TODO.md/ISSUES.md, surfaces a
+ranked top-3 "Next up" list and preserved questions before starting work, works the
+task to a checkpoint or blocker, commits via `/git-commit`, writes a fresh
+RESUME.md/ISSUES.md before stopping. First run in an unscoped location offers to
+bootstrap.
 
 ## Routing
 | Situation | Read |
