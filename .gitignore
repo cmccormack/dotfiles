@@ -14,3 +14,6 @@ MacOS/home/ssh/known_hosts
 # Claude history and session logs
 Claude/history.jsonl
 .claude/logs/
+
+# Claude runtime state (per-session markers, machine-local, never portable)
+Claude/state/

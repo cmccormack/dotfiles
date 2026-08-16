@@ -97,6 +97,11 @@
           {
             "type": "command",
             "command": "python3 $HOME/.claude/hooks/check_skill_size.py"
+          },
+          {
+            "type": "command",
+            "command": "python3 $HOME/.claude/hooks/cycle-mark-active.py",
+            "async": true
           }
         ]
       },

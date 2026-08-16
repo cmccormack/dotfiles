@@ -25,12 +25,20 @@ the user.
 Closing-line check (hard gate since 2026-08-15, was soft/systemMessage-only at
 launch): a real session ended without the closing line despite RESUME.md being
 otherwise clean (no placeholder, empty Claimed-by), and the systemMessage warning
-was not enough to catch it, so this now hard-blocks whenever
-last_assistant_message is present and its last line doesn't match. It stays soft
-(a systemMessage note, not a block) only when last_assistant_message itself is
-missing from the payload, since that means the check genuinely cannot be
-performed, not that it failed.
+was not enough to catch it, so this hard-blocks in that specific case.
+
+Gated by a marker (2026-08-16): Claude Code's Stop hook fires after EVERY
+assistant turn, not just when a session is truly ending, so the closing-line
+check on its own hard-blocked ordinary mid-conversation replies too. It is now
+gated on the marker cycle-mark-active.py writes when the `cycle` skill is
+invoked: if this session never claimed cycle work at this scope, the check is
+skipped entirely; if it did but no tracker-file commit has landed since the
+claim, the check is skipped (nothing to hand off yet) or soft (mid-edit,
+uncommitted); it only hard-blocks once a tracker-file commit has landed since
+the claim and the closing line is still missing, that is the actual "looked
+done but wasn't" signature the 2026-08-15 incident needs.
 """
+import hashlib
 import json
 import re
 import subprocess
@@ -43,6 +51,7 @@ PLACEHOLDER_RE = re.compile(r"<[^<>]+>")
 COMMENT_RE = re.compile(r"<!--.*?-->", re.S)
 CLAIMED_BY_RE = re.compile(r"^##\s*Claimed by\s*$", re.M)
 NEXT_HEADING_RE = re.compile(r"^##\s", re.M)
+STATE_DIR = Path.home() / ".claude" / "state" / "cycle-active"
 
 
 def find_repo_root(cwd):
@@ -101,6 +110,27 @@ def git_dirty(scope):
     return [line[3:] for line in out.stdout.splitlines() if line.strip()]
 
 
+def read_marker(scope):
+    key = hashlib.sha1(str(scope).encode()).hexdigest()
+    marker_path = STATE_DIR / f"{key}.json"
+    try:
+        return marker_path, json.loads(marker_path.read_text())
+    except Exception:
+        return marker_path, None
+
+
+def committed_since(scope, created_utc):
+    try:
+        out = subprocess.run(
+            ["git", "-C", str(scope), "log", f"--since={created_utc}",
+             "--oneline", "--", *TRACKER_FILES],
+            capture_output=True, text=True, timeout=5,
+        )
+    except Exception:
+        return False
+    return out.returncode == 0 and bool(out.stdout.strip())
+
+
 def main():
     payload = json.load(sys.stdin)
 
@@ -146,20 +176,35 @@ def main():
             " (not a hard blocker, may be about to be committed as the session's last step)"
         )
 
-    last_msg = payload.get("last_assistant_message")
-    if not last_msg:
-        soft_notes.append(
-            "could not check closing line: last_assistant_message was empty/missing "
-            "in the Stop hook payload"
-        )
-    else:
-        rstripped = last_msg.rstrip()
-        last_line = rstripped.splitlines()[-1].strip() if rstripped else ""
-        if last_line != CLOSING_LINE:
-            hard_failures.append(
-                "final assistant message did not end with the required closing line "
-                f"'{CLOSING_LINE}' on its own line (see cycle/references/session-end.md)"
+    marker_path, marker = read_marker(scope)
+    session_id = payload.get("session_id")
+    marker_active = bool(marker) and marker.get("session_id") == session_id
+    closed_out_clean = False
+
+    if marker_active and committed_since(scope, marker["created_utc"]):
+        last_msg = payload.get("last_assistant_message")
+        if not last_msg:
+            soft_notes.append(
+                "could not check closing line: last_assistant_message was empty/missing "
+                "in the Stop hook payload"
             )
+        else:
+            rstripped = last_msg.rstrip()
+            last_line = rstripped.splitlines()[-1].strip() if rstripped else ""
+            if last_line != CLOSING_LINE:
+                hard_failures.append(
+                    "final assistant message did not end with the required closing line "
+                    f"'{CLOSING_LINE}' on its own line (see cycle/references/session-end.md)"
+                )
+            else:
+                closed_out_clean = True
+    elif marker_active and dirty:
+        soft_notes.append(
+            "cycle session active with uncommitted tracker changes, "
+            "closing-line check deferred until a handoff commit lands"
+        )
+    # else: no active-cycle marker for this session, or nothing committed yet —
+    # this Stop event isn't a cycle handoff attempt, skip the closing-line check.
 
     if hard_failures:
         reason = f"cycle-stop-check: RESUME.md at {scope} is not handoff-ready.\n\n"
@@ -168,6 +213,12 @@ def main():
             reason += "\n\nAlso noted (not blocking):\n" + "\n".join(f"- {n}" for n in soft_notes)
         print(json.dumps({"decision": "block", "reason": reason}))
         return
+
+    if closed_out_clean:
+        try:
+            marker_path.unlink(missing_ok=True)
+        except Exception:
+            pass
 
     if soft_notes:
         print(json.dumps({"systemMessage": "cycle-stop-check: " + "; ".join(soft_notes)}))
