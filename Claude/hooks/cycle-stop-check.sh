@@ -22,11 +22,14 @@ closing-line check). To block, exit 0 and print {"decision": "block", "reason":
 "decision" allows the stop. `systemMessage` surfaces a non-blocking warning to
 the user.
 
-Tradeoff on the closing-line check (2d in the task spec): last_assistant_message
-turned out to be handed to us directly, which is much more reliable than
-transcript parsing, but it's still soft/best-effort by design, if it's missing
-or doesn't match we only warn via systemMessage, never hard-block solely on it.
-The placeholder and Claimed-by checks are the hard gates.
+Closing-line check (hard gate since 2026-08-15, was soft/systemMessage-only at
+launch): a real session ended without the closing line despite RESUME.md being
+otherwise clean (no placeholder, empty Claimed-by), and the systemMessage warning
+was not enough to catch it, so this now hard-blocks whenever
+last_assistant_message is present and its last line doesn't match. It stays soft
+(a systemMessage note, not a block) only when last_assistant_message itself is
+missing from the payload, since that means the check genuinely cannot be
+performed, not that it failed.
 """
 import json
 import re
@@ -153,9 +156,9 @@ def main():
         rstripped = last_msg.rstrip()
         last_line = rstripped.splitlines()[-1].strip() if rstripped else ""
         if last_line != CLOSING_LINE:
-            soft_notes.append(
+            hard_failures.append(
                 "final assistant message did not end with the required closing line "
-                f"'{CLOSING_LINE}' (see cycle/references/session-end.md)"
+                f"'{CLOSING_LINE}' on its own line (see cycle/references/session-end.md)"
             )
 
     if hard_failures:
