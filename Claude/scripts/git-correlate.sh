@@ -10,7 +10,11 @@ TS=$(date -u +%Y-%m-%dT%H:%M:%SZ)
 
 TOOL_COUNT=0
 if [[ -f "$JSONL" ]]; then
-  TOOL_COUNT=$(jq -r '.tool' "$JSONL" 2>/dev/null | wc -l | tr -d ' ')
+  if [[ "$SESSION_ID" != "unknown" ]]; then
+    TOOL_COUNT=$(jq -r --arg sid "$SESSION_ID" 'select(.session == $sid) | .tool' "$JSONL" 2>/dev/null | wc -l | tr -d ' ')
+  else
+    TOOL_COUNT=$(jq -r '.tool' "$JSONL" 2>/dev/null | wc -l | tr -d ' ')
+  fi
 fi
 
 NOTE=$(printf '{"session":"%s","ts":"%s","tool_calls":%s}' "$SESSION_ID" "$TS" "$TOOL_COUNT")
