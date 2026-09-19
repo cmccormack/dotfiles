@@ -29,3 +29,29 @@ Host Mack-NAS.local
 Host MackPi5.local
   HostName MackPi5.local
   User chris
+
+# deckops: warm multiplexed SSH to the Steam Decks. First connection opens a
+# master that persists 1h after last use; later ssh/scp/ansible runs reuse it.
+Host deck-oled
+  HostName 192.168.1.30
+
+Host deck-lcd
+  HostName 192.168.1.25
+
+Host deck-oled deck-lcd 192.168.1.30
+  User deck
+
+Host deck-oled deck-lcd 192.168.1.30 192.168.1.25
+  ControlMaster auto
+  ControlPath ~/.ssh/cm/%r@%h-%p
+  ControlPersist 1h
+  ServerAliveInterval 30
+
+# GitHub: one multiplexed connection reused for 10 min. Bursts of fresh port-22
+# connections (multi-repo /git-commit runs) hit connect timeouts after 4 or 5 in a row
+# (measured 2026-09-19); a shared master never opens more than one.
+Host github.com
+  ControlMaster auto
+  ControlPath ~/.ssh/cm/%r@%h-%p
+  ControlPersist 10m
+  ServerAliveInterval 30
