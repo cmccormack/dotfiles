@@ -22,19 +22,18 @@ pc_verbs="verbs sunshine-log sunshine-conf streaming-log controller-log steam-lo
 case " $verbs " in *" $verb "*) ;; *) echo "unknown verb for $host: $verb (allowed: $verbs)" >&2; exit 64 ;; esac
 
 for a in "$@"; do
-  case $a in
-    *[!A-Za-z0-9._/:@\\=-]*) echo "rejected argument: $a" >&2; exit 64 ;;
-  esac
+  [[ $a =~ ^[A-Za-z0-9._/:@\\=\(\)\ -]*$ ]] || { echo "rejected argument: $a" >&2; exit 64; }
 done
 
 [ -r "$KEY" ] || { echo "BLOCKED: agent key $KEY missing" >&2; exit 66; }
+args=$*
 
 run() {
   perl -e 'alarm shift; exec @ARGV' 30 \
-    ssh -i "$KEY" -o IdentitiesOnly=yes -o BatchMode=yes -o ConnectTimeout=5 \
+    ssh -F /dev/null -i "$KEY" -o WarnWeakCrypto=no -o IdentitiesOnly=yes -o BatchMode=yes -o ConnectTimeout=5 \
         -o ControlMaster=no -o ControlPath=none -o StrictHostKeyChecking=yes \
         -o ServerAliveInterval=5 -o ServerAliveCountMax=2 \
-        -p "$port" "$target" "$verb $*"
+        -p "$port" "$target" "$verb $args"
 }
 
 run; rc=$?
