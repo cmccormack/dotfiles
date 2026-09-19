@@ -119,14 +119,26 @@ Blast radius: global agents appear in every repo's prompt (eight descriptions, a
    execution.
 5. Global settings.json additions, validated with `python3 -m json.tool` before save,
    applied only through `update-config` via an Agent: `Bash(~/.claude/tools/dev-ro.sh:*)`,
-   `Write(/Users/chris/Projects/<repo>/.claude/research/*)` for gaming, macknet,
-   steamdeck (today only `Edit(...)` exists, so every agent's first write would stall),
+   `Write(/Users/chris/Projects/<repo>/.claude/research/*)` for gaming and macknet (today only `Edit(...)` exists, so every agent's first write would stall),
    and the vendor WebFetch domains found in Phase A.
 6. Security review of 3 to 5 (Opus), then owner go.
 
-## Enrichment cycle (next session, after Phase 0)
-- Phase A, gap audit: one `vendor-docs` run per agent lists the vendor docs it depends
-  on, fetches what is missing verbatim into `<repo>/docs/vendor/`, writes a gap report.
+## Enrichment cycle (after Phase 0)
+- Phase A, gap audit (started 2026-09-19): one `vendor-docs` run per agent lists the vendor
+  docs it depends on, fetches what is missing verbatim into `<repo>/docs/vendor/`, writes a
+  gap report. Finding from the first pass: WebFetch returns model-summarised prose, never
+  the page, so it cannot produce a canonical copy. Verbatim fetches go through
+  `~/.claude/tools/vendor-fetch.sh <url> <repo>/docs/vendor/<vendor>/<slug>.md`, which
+  checks the host against the settings.json WebFetch allowlist (exit 65 with the exact
+  `WebFetch(domain:...)` string otherwise), refuses output outside a `docs/vendor/` tree,
+  uses curl for raw sources (also clears the Arch wiki anti-bot page) and headless
+  Chromium for rendered pages. Steam help and store pages come back as navigation chrome
+  either way and stay `blocked: rendered`. Allowlist additions from the pass: help.ui.com,
+  developer.ui.com, ui.com, learn.microsoft.com, hellogames.zendesk.com, nomanssky.com,
+  docs.ue4ss.com, plus `Bash(~/.claude/tools/vendor-fetch.sh:*)` and
+  `Write(<repo>/docs/vendor/*)` for gaming and macknet (steamdeck is a gaming subproject,
+  so its vendor docs live in gaming/docs/vendor; the plan's earlier `Projects/steamdeck`
+  paths were wrong).
 - Phase B, learn: one run per domain agent, in parallel, propose-only. Each reads its
   vendor docs and writes, inside its research file, diffs for its agent file and for repo
   docs. The main session applies them serially (six agents editing shared docs would

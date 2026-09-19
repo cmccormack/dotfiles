@@ -16,7 +16,9 @@ reads the big diff in its own context; every other step runs inline (small outpu
    (leftovers from earlier sessions). Both empty → nothing to commit, stop. Show both lists;
    ask **"Stage session files? (yes / also include others / list exclusions / cancel)"**,
    recommending session-only.
-2. **Stage.** Inline: `git add <files>`, then `git diff --staged --stat`. Empty → stop.
+2. **Stage.** Inline: `git add <files>`, then `git diff --staged --stat`. Empty → stop. If any
+   staged path is under an `agents/` dir: `python3 ~/.claude/hooks/check_skill_size.py --agents
+   <dir>`; non-zero → stop and fix the budget first.
 3. **Review + draft message.** ONE Agent, which runs `git diff --staged` itself (never
    paste the diff into the prompt or have it returned). It reviews for bugs, security issues,
    obvious errors, unfinished/debug code, flagging only real problems (file:line, brief).
