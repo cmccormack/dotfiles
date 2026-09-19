@@ -3,7 +3,7 @@
 [View on GitHub](https://github.com/cmccormack/dotfiles/blob/main/Claude/docs/agents-plan.md)
 
 Status: v3, 2026-09-19. Adversarial review applied (gaming research token 97ff7e).
-Agent names APPROVED by owner 2026-09-19. Phase 0 (device access, allowlist, agents dir) applied and tested 2026-09-19, see deckops/docs/agent-access.md; Phase A is next.
+Agent names APPROVED by owner 2026-09-19. Phase 0 (device access, allowlist, agents dir) and Phase A (vendor docs, 48 files) done 2026-09-19; Phase B is next.
 
 Owner goal: when a question comes up about controllers, the Decks, streaming, audio,
 the gaming PC, the network, or a game, the main session dispatches a domain agent to
