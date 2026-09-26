@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/Users/chris/.local/pipx/venvs/playwright/bin/python
 """web_fetch.py — Playwright-based headless web fetcher.
 
 Usage:
@@ -275,16 +275,37 @@ def fetch(url: str, args: argparse.Namespace, allow_private: bool = False) -> tu
     )
     timeout_ms = getattr(args, "timeout", 30000)
     wait_for_selector = getattr(args, "wait_for", None)
+    profile_dir = getattr(args, "profile_dir", None)
+    headed = getattr(args, "headed", False)
+    login_pause = getattr(args, "login_pause", 0)
+    executable_path = getattr(args, "executable_path", None)
 
     with sync_playwright() as pw:
-        browser = pw.chromium.launch(headless=True, args=browser_args)
-        try:
-            context = browser.new_context(
+        if profile_dir:
+            Path(profile_dir).mkdir(parents=True, exist_ok=True)
+            persistent_kwargs = dict(
+                headless=not headed,
+                args=browser_args,
                 user_agent=ua,
                 viewport={"width": 1280, "height": 900},
                 java_script_enabled=True,
             )
-            page = context.new_page()
+            if executable_path:
+                persistent_kwargs["executable_path"] = executable_path
+            context = pw.chromium.launch_persistent_context(profile_dir, **persistent_kwargs)
+            browser = context
+        else:
+            browser = pw.chromium.launch(headless=not headed, args=browser_args)
+        try:
+            if profile_dir:
+                context = browser
+            else:
+                context = browser.new_context(
+                    user_agent=ua,
+                    viewport={"width": 1280, "height": 900},
+                    java_script_enabled=True,
+                )
+            page = context.new_page() if not (profile_dir and context.pages) else context.pages[0]
             page.add_init_script("Object.defineProperty(navigator,'webdriver',{get:()=>undefined})")
 
             # Intercept all navigation requests to prevent SSRF via redirects.
@@ -308,6 +329,9 @@ def fetch(url: str, args: argparse.Namespace, allow_private: bool = False) -> tu
                 err = build_error_result(url, f"navigation error: {exc}")
                 err["fetch_ms"] = fetch_ms
                 return err, 2
+
+            if login_pause:
+                page.wait_for_timeout(login_pause * 1000)
 
             if wait_for_selector:
                 try:
@@ -371,6 +395,27 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--no-sandbox", action="store_true", dest="no_sandbox", help="Pass --no-sandbox to Chromium (for CI)")
     p.add_argument("--daemon", action="store_true", help="Placeholder: daemon mode not yet implemented")
     p.add_argument("--user-agent", metavar="STRING", dest="user_agent", help="Override User-Agent string")
+    p.add_argument(
+        "--profile-dir", metavar="PATH", dest="profile_dir",
+        help="Persistent browser profile directory (cookies/localStorage persist across runs, "
+        "enabling authenticated sessions). Directory is created if missing.",
+    )
+    p.add_argument(
+        "--headed", action="store_true",
+        help="Launch a visible browser window instead of headless (use with --profile-dir "
+        "to log in manually once; the session is then reused headlessly).",
+    )
+    p.add_argument(
+        "--login-pause", type=int, default=0, metavar="SECONDS", dest="login_pause",
+        help="After the page loads, keep the (headed) window open this many seconds before "
+        "capturing content and closing — gives time to log in manually.",
+    )
+    p.add_argument(
+        "--executable-path", metavar="PATH", dest="executable_path",
+        help="Path to a real browser binary (e.g. an installed Chrome/Vivaldi) to launch instead "
+        "of Playwright's bundled Chromium. Combine with --profile-dir pointed at that browser's "
+        "real profile directory to reuse its cookies/extensions (browser must not be running).",
+    )
     return p
 
 
