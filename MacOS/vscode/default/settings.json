@@ -24,7 +24,7 @@
     "editor.suggest.showStatusBar": true,
     "workbench.preferredDarkColorTheme": "Cobalt2",
     "workbench.preferredLightColorTheme": "Solarized Light",
-    "workbench.colorTheme": "Claude Dark Theme",
+    "workbench.colorTheme": "SynthWave '84",
     "terminal.integrated.shellIntegration.enabled": true,
     "redhat.telemetry.enabled": true,
     "files.associations": {
