@@ -2,7 +2,7 @@
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "permissions": {
     "allow": [
-      "WebSearch(*)",
+      "WebSearch",
       "WebFetch(domain:partner.steamgames.com)",
       "WebFetch(domain:github.com)",
       "WebFetch(domain:azahar-emu.org)",
@@ -59,14 +59,13 @@
       "WebFetch(domain:okaetsu.github.io)",
       "Bash(python3 *)",
       "Bash(python *)",
-      "Edit(/Users/chris/Projects/gaming/.claude/research/*)",
-      "Write(/Users/chris/Projects/gaming/.claude/research/*)",
-      "Write(/Users/chris/Projects/macknet/.claude/research/*)",
-      "Write(/Users/chris/Projects/gaming/docs/vendor/*)",
-      "Write(/Users/chris/Projects/macknet/docs/vendor/*)",
+      "Edit(//Users/chris/Projects/gaming/.claude/research/*)",
+      "Edit(//Users/chris/Projects/macknet/.claude/research/*)",
+      "Edit(//Users/chris/Projects/gaming/docs/vendor/*)",
+      "Edit(//Users/chris/Projects/macknet/docs/vendor/*)",
       "Bash(~/.claude/tools/dev-ro.sh:*)",
       "Bash(~/.claude/tools/vendor-fetch.sh:*)",
-      "Edit(/Users/chris/Projects/gaming/.claude/cache/*)",
+      "Edit(//Users/chris/Projects/gaming/.claude/cache/*)",
       "Bash(ls *)",
       "Bash(ls)",
       "Bash(find *)",
@@ -112,7 +111,7 @@
       "Bash(unzip *)"
     ]
   },
-  "model": "sonnet",
+  "model": "opus",
   "hooks": {
     "PreToolUse": [
       {

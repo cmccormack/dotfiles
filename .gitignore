@@ -17,3 +17,6 @@ Claude/history.jsonl
 
 # Claude runtime state (per-session markers, machine-local, never portable)
 Claude/state/
+# Claude: browser login profiles (cookies) and harness-synced skill cache
+Claude/tools/browser-profiles/
+Claude/skills/synced/
