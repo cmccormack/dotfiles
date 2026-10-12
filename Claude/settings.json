@@ -111,7 +111,7 @@
       "Bash(unzip *)"
     ]
   },
-  "model": "opus",
+  "model": "sonnet",
   "hooks": {
     "PreToolUse": [
       {
