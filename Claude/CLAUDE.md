@@ -33,12 +33,14 @@
 - `/review-skill <name>` — audit a skill file for token efficiency and clarity
 - `/token-audit` — analyze `.claude/logs/session.jsonl`
 - `/web_fetch` — fetch JS-rendered pages via headless Chromium; tool at `~/.claude/tools/web_fetch.py`
+- `/prep-compact`: back up session state to `.claude/handoff/`, then print a `/compact` prompt and a post-compact resume prompt
 
 ## Git
 - Never add `Co-Authored-By:` trailers to commit messages.
 
 ## Markdown Conventions
 - Human-readable markdown files (README, CLAUDE.md, docs, etc.) include a `[View on <SCM>](URL)` link under the title.
+- Docs are instructional, never historical: "if you see X, check Y, fix Z". No dates, build numbers, or incident stories in the body. A resolved issue keeps one line of cause ("Steam beta leaked LD_LIBRARY_PATH", "our converge did X"). Incident detail lives in git log.
 
 ## Code Style
 - No comments unless the WHY is non-obvious.
