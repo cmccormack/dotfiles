@@ -176,6 +176,11 @@
     "command": "bash ~/.claude/statusline/statusline.sh"
   },
   "effortLevel": "medium",
+  "modelSettings": {
+    "claude-opus-5-5": {
+      "autoCompactWindow": 300000
+    }
+  },
   "voice": {
     "mode": "hold",
     "autoSubmit": true
@@ -212,5 +217,9 @@
       "**routine under chris/ prefix**: SSH and admin operations against 192.168.1.50 (Synology NAS) and 192.168.1.1/192.168.1.40 (UniFi controller/devices) as user `chris`/`svc-claude`/`svc-ui-admin`"
     ]
   },
-  "voiceEnabled": true
+  "voiceEnabled": true,
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  }
 }
